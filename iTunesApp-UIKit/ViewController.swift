@@ -10,17 +10,15 @@ import UIKit
  */
 
 class ViewController: UIViewController, UITableViewDataSource {
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var infoBackground: UIImageView!
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
-    let CellIdentifier = "com.pmaxsym.iTunesApp"
+    private let CellIdentifier = "com.pmaxsym.iTunesApp.song"
+    private let networkApi = NetworkAPI()
+    private var songs: [Song] = []
     
-    let data = ["New York, NY", "Los Angeles, CA", "Chicago, IL", "Houston, TX",
-                "Philadelphia, PA", "Phoenix, AZ", "San Diego, CA", "San Antonio, TX",
-                "Dallas, TX", "Detroit, MI", "San Jose, CA", "Indianapolis, IN",
-                "Jacksonville, FL", "San Francisco, CA", "Columbus, OH", "Austin, TX",
-                "Memphis, TN", "Baltimore, MD", "Charlotte, ND", "Fort Worth, TX"]
+    private var searchTimer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,14 +26,46 @@ class ViewController: UIViewController, UITableViewDataSource {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier)
     }
     
-    // TODO move UITableViewDataSource to separate file
+    // TODO: move UITableViewDataSource to separate file
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier, for: indexPath)
-        cell.textLabel?.text = data[indexPath.row]
+        cell.textLabel?.text = songs[indexPath.row].trackName
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return songs.count
     }
 }
+
+extension ViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchTimer?.invalidate()
+        
+        if searchText == "" {
+            // show message to start searching
+            // TODO: change infoBackground and tableView visibility
+            print("Empty")
+        } else {
+            print(searchText)
+            searchTimer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { [weak self] _ in
+                self?.handleSearch(searchText: searchText)
+            }
+        }
+    }
+    
+    func handleSearch(searchText: String) {
+        networkApi.searchForSongs(searchTerm: searchText) { results in
+            switch results {
+                case .success(let songs):
+                    DispatchQueue.main.async {
+                        self.songs = songs
+                        self.tableView.reloadData()
+                    }
+                case .failure(let error):
+                print(error)
+            }
+        }
+    }
+}
+

@@ -2,6 +2,54 @@
 
 import Foundation
 
+
+class NetworkAPI {
+    private let baseUrl = "https://itunes.apple.com"
+    private let searchEndpoint = "/search"
+    
+    public func searchForSongs(
+        searchTerm: String,
+        completion: @escaping (Result<[Song], SongError>) -> ()
+    ) {
+        guard let encodedTerm = searchTerm.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            completion(.failure(SongError.invalidSearchTerm))
+            return
+        }
+        
+        let urlString = "\(baseUrl)\(searchEndpoint)?term=\(encodedTerm)&entity=song"
+        guard let url = URL(string: urlString) else {
+            completion(.failure(SongError.invalidURL))
+            return
+        }
+        print(urlString)
+        
+        let request = URLRequest(url: url)
+        let task = URLSession.shared.dataTask(with: request) { data, _, error in
+            if let error = error {
+                completion(.failure(.networkError(error)))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(SongError.networkError(NSError())))
+                return
+            }
+            print(data)
+            
+            do {
+                let result = try JSONDecoder().decode(SongsResponse.self, from: data)
+                completion(.success(result.results))
+            } catch {
+                completion(.failure(SongError.decodingError(error)))
+            }
+            
+        }
+        task.resume()
+    }
+    
+}
+
+
 /*
   
  API URL: https://itunes.apple.com/search?term=jack+johnson

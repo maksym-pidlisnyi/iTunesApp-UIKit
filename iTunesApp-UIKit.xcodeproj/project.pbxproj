@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		193F9B802B3236280093AF1A /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193F9B7F2B3236280093AF1A /* Song.swift */; };
 		99C01A7528D8AE5500DDF979 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C01A7428D8AE5500DDF979 /* AppDelegate.swift */; };
 		99C01A7728D8AE5500DDF979 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C01A7628D8AE5500DDF979 /* SceneDelegate.swift */; };
 		99C01A7928D8AE5500DDF979 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C01A7828D8AE5500DDF979 /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		193F9B7F2B3236280093AF1A /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		99C01A7128D8AE5500DDF979 /* iTunesApp-UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iTunesApp-UIKit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		99C01A7428D8AE5500DDF979 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99C01A7628D8AE5500DDF979 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				99C01A7F28D8AE5900DDF979 /* LaunchScreen.storyboard */,
 				99C01A8228D8AE5900DDF979 /* Info.plist */,
 				99C01A8828D8AE7200DDF979 /* NetworkAPI.swift */,
+				193F9B7F2B3236280093AF1A /* Song.swift */,
 			);
 			path = "iTunesApp-UIKit";
 			sourceTree = "<group>";
@@ -98,7 +101,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					99C01A7028D8AE5500DDF979 = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -145,6 +148,7 @@
 				99C01A7528D8AE5500DDF979 /* AppDelegate.swift in Sources */,
 				99C01A7728D8AE5500DDF979 /* SceneDelegate.swift in Sources */,
 				99C01A8928D8AE7200DDF979 /* NetworkAPI.swift in Sources */,
+				193F9B802B3236280093AF1A /* Song.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,6 +210,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -266,6 +271,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
